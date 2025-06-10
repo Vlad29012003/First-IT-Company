@@ -25,5 +25,50 @@
         <a href="{% url 'cashflow_list' %}" class="btn btn-secondary">Отмена</a>
     </form>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(function() {
+    function updateCategories(typeId, selectedCategoryId) {
+        var $category = $('#id_category');
+        $category.html('<option value="">---------</option>');
+        $('#id_subcategory').html('<option value="">---------</option>');
+        if (typeId) {
+            $.getJSON("{% url 'ajax_get_categories' %}", {type_id: typeId}, function(data) {
+                $.each(data, function(i, obj) {
+                    var selected = selectedCategoryId && selectedCategoryId == obj.id ? 'selected' : '';
+                    $category.append('<option value="' + obj.id + '" ' + selected + '>' + obj.name + '</option>');
+                });
+            });
+        }
+    }
+    function updateSubcategories(categoryId, selectedSubcategoryId) {
+        var $subcategory = $('#id_subcategory');
+        $subcategory.html('<option value="">---------</option>');
+        if (categoryId) {
+            $.getJSON("{% url 'ajax_get_subcategories' %}", {category_id: categoryId}, function(data) {
+                $.each(data, function(i, obj) {
+                    var selected = selectedSubcategoryId && selectedSubcategoryId == obj.id ? 'selected' : '';
+                    $subcategory.append('<option value="' + obj.id + '" ' + selected + '>' + obj.name + '</option>');
+                });
+            });
+        }
+    }
+    $('#id_type').change(function() {
+        updateCategories($(this).val());
+    });
+    $('#id_category').change(function() {
+        updateSubcategories($(this).val());
+    });
+    var initialType = $('#id_type').val();
+    var initialCategory = $('#id_category').val();
+    var initialSubcategory = $('#id_subcategory').val();
+    if (initialType) {
+        updateCategories(initialType, initialCategory);
+    }
+    if (initialCategory) {
+        updateSubcategories(initialCategory, initialSubcategory);
+    }
+});
+</script>
 </body>
 </html> 
