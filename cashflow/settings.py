@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'directories',
     'cashflow_records',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
