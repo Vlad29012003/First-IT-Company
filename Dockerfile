@@ -2,14 +2,15 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Копируем весь проект
+RUN pip install uv
+
+COPY pyproject.toml uv.lock ./
+
 COPY . .
 
-# Установка uv и зависимостей (в .venv)
-RUN pip install uv && uv sync --frozen
+RUN uv pip install --system .
 
-# Сборка статики внутри .venv
-RUN .venv/bin/python manage.py collectstatic --noinput
 
-# Запуск gunicorn внутри .venv
-CMD [".venv/bin/gunicorn", "cashflow.wsgi:application", "--bind", "0.0.0.0:8000"]
+RUN python manage.py collectstatic --noinput
+
+CMD ["gunicorn", "cashflow.wsgi:application", "--bind", "0.0.0.0:8000"]

@@ -15,14 +15,13 @@ dependencies = [
     "python-dotenv",
     "gunicorn",
     "dj-database-url"
-
 ]
 
 [project.optional-dependencies]
 dev = [
     "pytest>=6.0",
     "black",
-    "flake8",
+    "flake8"
 ]
 
 [build-system]
@@ -36,3 +35,6 @@ target-version = ['py38']
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["cashflow"]
