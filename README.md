@@ -28,7 +28,7 @@
    POSTGRES_DB=cashflow
    POSTGRES_USER=cashflow
    POSTGRES_PASSWORD=cashflow
-   DJANGO_SECRET_KEY=your-secret-key
+   DJANGO_SECRET_KEY='django-insecure-)+7w22)q&)u^^%(^k$p&q5a^bc0)#(o^2r!38kh=%5c24&e#f8'
    DJANGO_DEBUG=False
    DJANGO_ALLOWED_HOSTS=*
    DATABASE_URL=postgres://cashflow:cashflow@db:5432/cashflow
@@ -82,5 +82,4 @@
 
 ---
 
-## Скриншоты
-
+## Скриншоты указанны в директории screenshots
