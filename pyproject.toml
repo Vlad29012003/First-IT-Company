@@ -1,5 +1,5 @@
 [project]
-name = "cashflow-project"
+name = "new-project"
 version = "0.1.0"
 description = "Django cashflow management application"
 authors = [
@@ -11,6 +11,11 @@ dependencies = [
     "Django>=4.2,<5.0",
     "django-filter>=23.0",
     "django-widget-tweaks>=1.4.13",
+    "psycopg2-binary",
+    "python-dotenv",
+    "gunicorn",
+    "dj-database-url"
+
 ]
 
 [project.optional-dependencies]
