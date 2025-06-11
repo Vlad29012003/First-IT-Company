@@ -10,6 +10,21 @@
 <body>
 <div class="container mt-4">
     <h1>Движение денежных средств</h1>
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show mt-2" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+    <div class="mb-3">
+        <span class="fw-bold">Справочники:</span>
+        <a href="/directories/status/" class="btn btn-outline-secondary btn-sm ms-1">Статусы</a>
+        <a href="/directories/type/" class="btn btn-outline-secondary btn-sm ms-1">Типы</a>
+        <a href="/directories/category/" class="btn btn-outline-secondary btn-sm ms-1">Категории</a>
+        <a href="/directories/subcategory/" class="btn btn-outline-secondary btn-sm ms-1">Подкатегории</a>
+    </div>
     <a href="{% url 'cashflow_add' %}" class="btn btn-success mb-3">Добавить запись</a>
     <form method="get" class="row g-3 mb-4">
         {% for field in filter.form.visible_fields %}

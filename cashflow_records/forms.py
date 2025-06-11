@@ -29,4 +29,14 @@ class CashFlowRecordForm(forms.ModelForm):
         elif self.instance.pk:
             self.fields['subcategory'].queryset = SubCategory.objects.filter(category=self.instance.category)
         else:
-            self.fields['subcategory'].queryset = SubCategory.objects.none() 
+            self.fields['subcategory'].queryset = SubCategory.objects.none()
+
+        required_fields = ['type', 'category', 'subcategory', 'amount']
+        for field_name in required_fields:
+            if field_name in self.fields:
+                self.fields[field_name].required = True
+                self.fields[field_name].widget.attrs['required'] = 'required'
+        if 'amount' in self.fields:
+            self.fields['amount'].widget.attrs['min'] = '0.01'
+            self.fields['amount'].widget.attrs['step'] = '0.01'
+            self.fields['amount'].widget.attrs['max'] = '1000000000' 

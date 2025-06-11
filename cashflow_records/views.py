@@ -4,6 +4,7 @@ from .models import CashFlowRecord
 from .forms import CashFlowRecordForm
 from django.http import JsonResponse
 from directories.models import Category, SubCategory
+from django.contrib import messages
 
 class CashFlowListView(ListView):
     model = CashFlowRecord
@@ -15,17 +16,26 @@ class CashFlowCreateView(CreateView):
     form_class = CashFlowRecordForm
     template_name = 'cashflow_records/cashflow_form.html'
     success_url = reverse_lazy('cashflow_list')
+    def form_valid(self, form):
+        messages.success(self.request, 'Запись успешно создана!')
+        return super().form_valid(form)
 
 class CashFlowUpdateView(UpdateView):
     model = CashFlowRecord
     form_class = CashFlowRecordForm
     template_name = 'cashflow_records/cashflow_form.html'
     success_url = reverse_lazy('cashflow_list')
+    def form_valid(self, form):
+        messages.success(self.request, 'Запись успешно обновлена!')
+        return super().form_valid(form)
 
 class CashFlowDeleteView(DeleteView):
     model = CashFlowRecord
     template_name = 'cashflow_records/cashflow_confirm_delete.html'
     success_url = reverse_lazy('cashflow_list')
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Запись успешно удалена!')
+        return super().delete(request, *args, **kwargs)
 
 def get_categories(request):
     type_id = request.GET.get('type_id')
